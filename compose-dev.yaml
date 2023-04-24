@@ -1,0 +1,13 @@
+services:
+  bookworm-photos:
+    container_name: bookworm-photos
+    build:
+      dockerfile: Dockerfile
+    image: bookworm:latest
+    ports:
+      - 18888:8888
+    networks:
+      - bookworm-network
+networks:
+  bookworm-network:
+    driver: bridge
