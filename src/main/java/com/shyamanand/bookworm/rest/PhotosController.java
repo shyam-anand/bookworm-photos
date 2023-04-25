@@ -24,17 +24,9 @@ public class PhotosController {
         this.s3Service = s3Service;
     }
 
-    @PostMapping("/analyze")
-    public ResponseEntity<?> analyze(@RequestParam String key) {
-
-        byte[] objectBytes = s3Service.getObjectBytes(key);
-        List<AnalysisResult> analysisResults = rekognitionService.detectLabels(objectBytes);
-        return ResponseEntity.ok(analysisResults);
-    }
-
-    @PostMapping("detectText")
-    public ResponseEntity<?> detectText(@RequestParam String image) {
-        byte[] imageBytes = s3Service.getObjectBytes(image);
+    @GetMapping("/{key}/text")
+    public ResponseEntity<?> detectText(@PathVariable String key) {
+        byte[] imageBytes = s3Service.getObjectBytes(key);
         List<String> detectedText = rekognitionService.detectText(imageBytes);
         return ResponseEntity.ok(detectedText);
     }
@@ -47,13 +39,13 @@ public class PhotosController {
     }
 
     @PostMapping
-    public @ResponseBody String upload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         try {
             byte[] bytes = file.getBytes();
-            String name = file.getOriginalFilename();
-            return s3Service.addPhoto(bytes, name);
+            return ResponseEntity.ok(s3Service.addPhoto(bytes));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.internalServerError()
+                    .body(e.getMessage());
         }
     }
 }

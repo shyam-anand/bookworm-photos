@@ -1,10 +1,9 @@
 package com.shyamanand.bookworm.s3;
 
+import com.shyamanand.bookworm.rest.Photo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -12,6 +11,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class S3Service {
@@ -56,14 +56,18 @@ public class S3Service {
         }
     }
 
-    public String addPhoto(byte[] bytes, String key) {
+    public Photo addPhoto(byte[] bytes) {
+        String key = UUID.randomUUID().toString();
         try {
             PutObjectResponse response = s3Client.putObject(PutObjectRequest.builder()
                             .bucket(s3Bucket)
                             .key(key)
                             .build(),
                     RequestBody.fromBytes(bytes));
-            return response.toString();
+            return Photo.builder()
+                    .name(key)
+                    .eTag(response.eTag())
+                    .build();
         } catch (S3Exception e) {
             throw new RuntimeException(e);
         }
