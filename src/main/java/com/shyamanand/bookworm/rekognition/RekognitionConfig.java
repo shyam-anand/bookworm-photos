@@ -1,5 +1,6 @@
 package com.shyamanand.bookworm.rekognition;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -11,6 +12,7 @@ public class RekognitionConfig {
 
     @Bean
     public RekognitionClient rekognitionClient(Region region) {
+
         return RekognitionClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
