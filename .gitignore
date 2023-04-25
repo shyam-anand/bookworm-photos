@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Files that should not be checked in ###
+Dockerfile
+src/main/resources/application.properties
