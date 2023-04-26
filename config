@@ -1,7 +1,3 @@
 [default]
-aws_access_key_id = AKIAW2ESVQQFLZK4ZOHG
-aws_secret_access_key = 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
-
-[profile backendapp]
-aws_access_key_id = AKIAW2ESVQQFNMM3VD3E
-aws_secret_access_key = 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
+aws_access_key_id = AKIAW2ESVQQFBS7QZ2US
+aws_secret_access_key = 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
