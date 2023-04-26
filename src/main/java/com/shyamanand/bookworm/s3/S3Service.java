@@ -58,6 +58,7 @@ public class S3Service {
 
     public Photo addPhoto(byte[] bytes) {
         String key = UUID.randomUUID().toString();
+        log.info("Writing file to S3. key = " + key);
         try {
             PutObjectResponse response = s3Client.putObject(PutObjectRequest.builder()
                             .bucket(s3Bucket)

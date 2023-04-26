@@ -2,6 +2,8 @@ package com.shyamanand.bookworm.rest;
 
 import com.shyamanand.bookworm.rekognition.RekognitionService;
 import com.shyamanand.bookworm.s3.S3Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/photos")
 public class PhotosController {
+
+    private static final Logger log = LoggerFactory.getLogger(PhotosController.class);
 
     private final RekognitionService rekognitionService;
     private final S3Service s3Service;
@@ -40,9 +44,13 @@ public class PhotosController {
 
     @PostMapping
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
+        log.info("Received file");
         try {
             byte[] bytes = file.getBytes();
-            return ResponseEntity.ok(s3Service.addPhoto(bytes));
+            Photo photo = s3Service.addPhoto(bytes);
+            log.info("Photo uploaded: " + photo.getName() + ", " + photo.getETag());
+
+            return ResponseEntity.ok(photo);
         } catch (IOException e) {
             return ResponseEntity.internalServerError()
                     .body(e.getMessage());
