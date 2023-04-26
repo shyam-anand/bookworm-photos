@@ -35,7 +35,6 @@ public class S3Service {
                     .bucket(s3Bucket)
                     .build();
             ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(getObjectRequest);
-            log.info("object found for request " + getObjectRequest.toString());
             return objectBytes.asByteArray();
         } catch (S3Exception e) {
             log.error(e.getMessage());
