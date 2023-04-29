@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: photos-service
-          image: photos
+          image: heavydistortion/bookworm-photos
           imagePullPolicy: Never
 ---
 apiVersion: v1
