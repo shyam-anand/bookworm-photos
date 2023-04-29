@@ -16,4 +16,5 @@ spec:
       containers:
         - name: photos
           image: heavydistortion/bookworm-photos:latest
-          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
