@@ -11,11 +11,16 @@ import software.amazon.awssdk.services.rekognition.RekognitionClient;
 public class RekognitionConfig {
 
     @Bean
-    public RekognitionClient rekognitionClient(Region region) {
+    public Region rekognitionRegion() {
+        return Region.AP_SOUTH_1;
+    }
+
+    @Bean
+    public RekognitionClient rekognitionClient(Region rekognitionRegion) {
 
         return RekognitionClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
+                .region(rekognitionRegion)
                 .build();
     }
 
