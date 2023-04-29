@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: photos
-  namespace: bookworm
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -14,15 +14,15 @@ spec:
         photos: web
     spec:
       containers:
-        - name: photos-service
+        - name: photos
           image: heavydistortion/bookworm-photos
           imagePullPolicy: Never
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: photos-entrypoint
-  namespace: bookworm
+  name: photos-service
+  namespace: default
 spec:
   type: NodePort
   selector:
