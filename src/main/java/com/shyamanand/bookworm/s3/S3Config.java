@@ -2,6 +2,7 @@ package com.shyamanand.bookworm.s3;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -21,11 +22,6 @@ public class S3Config {
     }
 
     @Bean
-    public String s3Bucket() {
-        return "bookworm-userphotos";
-    }
-
-    @Bean
     public S3Client s3Client(Region awsRegion) {
         return S3Client.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -35,7 +31,8 @@ public class S3Config {
     }
 
     @Bean
-    public Boolean s3AccessChecker(S3Client s3Client, String s3Bucket) {
+    public Boolean s3AccessChecker(S3Client s3Client,
+                                   @Value("${s3.bucket-name}") String s3Bucket) {
         GetBucketLocationResponse bucketLocation = s3Client.getBucketLocation(
                 GetBucketLocationRequest.builder()
                         .bucket(s3Bucket).build());

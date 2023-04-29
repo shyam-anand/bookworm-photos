@@ -4,6 +4,7 @@ import com.shyamanand.bookworm.rest.Photo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -22,7 +23,7 @@ public class S3Service {
     private final String s3Bucket;
 
     @Autowired
-    public S3Service(S3Client s3Client, String s3Bucket) {
+    public S3Service(S3Client s3Client, @Value("${s3.bucket-name}") String s3Bucket) {
         this.s3Client = s3Client;
         this.s3Bucket = s3Bucket;
     }
