@@ -15,5 +15,5 @@ spec:
     spec:
       containers:
         - name: photos
-          image: heavydistortion/bookworm-photos
+          image: heavydistortion/bookworm-photos:latest
           imagePullPolicy: Never
