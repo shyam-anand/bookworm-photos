@@ -9,9 +9,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetBucketLocationRequest;
 import software.amazon.awssdk.services.s3.model.GetBucketLocationResponse;
-import software.amazon.awssdk.services.s3.model.S3Object;
-
-import java.util.List;
 
 @Configuration
 public class S3Config {
@@ -20,7 +17,7 @@ public class S3Config {
 
     @Bean
     public Region awsRegion() {
-        return Region.US_EAST_1;
+        return Region.EU_NORTH_1;
     }
 
     @Bean
