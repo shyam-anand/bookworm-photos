@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photos
+  namespace: bookworm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      photos: web
+  template:
+    metadata:
+      labels:
+        photos: web
+    spec:
+      containers:
+        - name: photos-service
+          image: photos
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photos-entrypoint
+  namespace: bookworm
+spec:
+  type: NodePort
+  selector:
+    photos: web
+  ports:
+    - port: 8080
+      targetPort: 8080
