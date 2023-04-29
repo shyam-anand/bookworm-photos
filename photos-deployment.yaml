@@ -11,11 +11,11 @@ spec:
       maxUnavailable: 100%
   selector:
     matchLabels:
-      photos: photos
+      photos: web
   template:
     metadata:
       labels:
-        photos: photos
+        photos: web
     spec:
       containers:
         - name: photos
