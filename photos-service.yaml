@@ -8,6 +8,8 @@ spec:
       image: heavydistortion/bookworm-photos
       ports:
         - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP
 
 ---
 apiVersion: v1
@@ -22,3 +24,4 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
+      nodePort: 8080
