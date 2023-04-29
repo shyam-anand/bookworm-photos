@@ -17,16 +17,3 @@ spec:
         - name: photos
           image: heavydistortion/bookworm-photos
           imagePullPolicy: Never
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: photos-service
-  namespace: default
-spec:
-  type: NodePort
-  selector:
-    photos: web
-  ports:
-    - port: 8080
-      targetPort: 8080
