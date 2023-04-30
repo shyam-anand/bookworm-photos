@@ -7,7 +7,7 @@ spec:
     - name: photos
       image: heavydistortion/bookworm-photos
       ports:
-        - containerPort: 8080
+        - containerPort: 80
           hostPort: 8080
           protocol: TCP
 
@@ -22,6 +22,5 @@ spec:
   selector:
     photos: web
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
-      nodePort: 8080
